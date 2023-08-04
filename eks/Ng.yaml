@@ -1,0 +1,79 @@
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+managedNodeGroups:
+- amiFamily: AmazonLinux2
+  availabilityZones:
+  - us-east-1a
+  - us-east-1b
+  desiredCapacity: 0
+  disableIMDSv1: true
+  disablePodIMDS: false
+  iam:
+    withAddonPolicies:
+      albIngress: false
+      appMesh: true
+      appMeshPreview: false
+      autoScaler: true
+      awsLoadBalancerController: true
+      certManager: false
+      cloudWatch: false
+      ebs: false
+[root@ip-172-31-51-77 ~]# eksctl create nodegroup --name demo --region us-east-1 --nodes-min=0 --nodes-max=2 --nodes=0 --node-zones=us-east-1a,us-east-1b --cluster devop --asg-access --appmesh-access  --alb-ingress-access --full-ecr-access --external-dns-access --insta --dry-run  
+--install-neuron-plugin                --instance-prefix                      --instance-selector-gpus               --instance-selector-vcpus
+--install-nvidia-plugin                --instance-prefix=                     --instance-selector-gpus=              --instance-selector-vcpus=
+--instance-name                        --instance-selector-cpu-architecture   --instance-selector-memory             --instance-types
+--instance-name=                       --instance-selector-cpu-architecture=  --instance-selector-memory=            --instance-types=
+[root@ip-172-31-51-77 ~]# eksctl create nodegroup --name demo --region us-east-1 --nodes-min=0 --nodes-max=2 --nodes=0 --node-zones=us-east-1a,us-east-1b --cluster devop --asg-access --appmesh-access  --alb-ingress-access --full-ecr-access --external-dns-access --instance-types=t3a.medium --dry-run  
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+managedNodeGroups:
+- amiFamily: AmazonLinux2
+  availabilityZones:
+  - us-east-1a
+  - us-east-1b
+  desiredCapacity: 0
+  disableIMDSv1: true
+  disablePodIMDS: false
+  iam:
+    withAddonPolicies:
+      albIngress: false
+      appMesh: true
+      appMeshPreview: false
+      autoScaler: true
+      awsLoadBalancerController: true
+      certManager: false
+      cloudWatch: false
+      ebs: false
+      efs: false
+      externalDNS: true
+      fsx: false
+      imageBuilder: true
+      xRay: false
+  instanceSelector: {}
+  instanceTypes:
+  - t3a.medium
+  labels:
+    alpha.eksctl.io/cluster-name: devop
+    alpha.eksctl.io/nodegroup-name: demo
+  maxSize: 2
+  minSize: 0
+  name: demo
+  privateNetworking: false
+  releaseVersion: ""
+  securityGroups:
+    withLocal: null
+    withShared: null
+  ssh:
+    allow: false
+    publicKeyPath: ""
+  tags:
+    alpha.eksctl.io/nodegroup-name: demo
+    alpha.eksctl.io/nodegroup-type: managed
+  volumeIOPS: 3000
+  volumeSize: 80
+  volumeThroughput: 125
+  volumeType: gp3
+metadata:
+  name: devop
+  region: us-east-1
+  version: "1.25"

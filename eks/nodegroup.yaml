@@ -1,0 +1,16 @@
+eksctl create nodegroup --cluster=devop \
+--region=us-east-1 \
+--name=demo-ng \
+--node-type=t3a.medium \
+--nodes=0 \
+--nodes-min=0 \
+--nodes-max=2 \
+--node-volume-size=10 \
+--ssh-access \
+--ssh-public-key=demo.key \
+--managed \
+--asg-access \
+--external-dns-access \
+--full-ecr-access \
+--appmesh-access \
+--alb-ingress-access
