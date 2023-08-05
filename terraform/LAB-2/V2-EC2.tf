@@ -22,7 +22,7 @@ resource "aws_instance" "demo" {
 }
 
 resource "aws_security_group" "demo" {
-  name = "sg-from-terraform" # var.ec2_sg_name
+  name = "SSH-terraform" # var.ec2_sg_name
   description = "Security Group Fro EC2 Instances"
   vpc_id = "vpc-1f72cd65" # var.vpc_id.id
   ingress {
@@ -30,7 +30,18 @@ resource "aws_security_group" "demo" {
     from_port        = 22
     to_port          = 22
     protocol         = "tcp"
-    cidr_blocks      = [aws_vpc.main.cidr_block]
-    ipv6_cidr_blocks = [aws_vpc.main.ipv6_cidr_block]
+    cidr_blocks      = ["0.0.0.0/0"]
   }
+  egress {
+    description      = "SSH from Public"
+    from_port        = 0 
+    to_port          = 0
+    protocol         = "-1"
+    cidr_blocks      = ["0.0.0.0/0"]
+    ipv6_cidr_blocks = ["::/0"]
+  }
+tags = {
+  Name = "Created by terraform"
 }
+}
+
