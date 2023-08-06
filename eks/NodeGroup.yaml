@@ -1,0 +1,49 @@
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+managedNodeGroups:
+- amiFamily: AmazonLinux2
+  desiredCapacity: 2
+  disableIMDSv1: true
+  disablePodIMDS: false
+  iam:
+    withAddonPolicies:
+      albIngress: false
+      appMesh: true
+      appMeshPreview: false
+      autoScaler: true
+      awsLoadBalancerController: true
+      certManager: false
+      cloudWatch: false
+      ebs: false
+      efs: false
+      externalDNS: true
+      fsx: false
+      imageBuilder: true
+      xRay: false
+  instanceSelector: {}
+  instanceType: t3a.medium
+  labels:
+    alpha.eksctl.io/cluster-name: devops
+    alpha.eksctl.io/nodegroup-name: demo
+  maxSize: 2
+  minSize: 1
+  name: demo
+  privateNetworking: false
+  releaseVersion: ""
+  securityGroups:
+    withLocal: null
+    withShared: null
+  ssh:
+    allow: true
+    publicKeyPath: arvind-eks
+  tags:
+    alpha.eksctl.io/nodegroup-name: demo
+    alpha.eksctl.io/nodegroup-type: managed
+  volumeIOPS: 3000
+  volumeSize: 80
+  volumeThroughput: 125
+  volumeType: gp3
+metadata:
+  name: devops
+  region: us-east-1
+  version: "1.25"
